@@ -3,7 +3,7 @@ from sqlalchemy import (
     MetaData, Table, Column, ForeignKey,
     Integer, String, Date
 )
-
+# todo: сделать хэшируемый пароль, не хранить его в открытом виде
 meta = MetaData()
 
 user = Table(
