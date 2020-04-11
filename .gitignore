@@ -1,0 +1,8 @@
+.idea/.gitignore
+.idea/inspectionProfiles/
+.idea/misc.xml
+.idea/modules.xml
+.idea/testing_aiohttp.iml
+.idea/vcs.xml
+venv/
+__pycache__
