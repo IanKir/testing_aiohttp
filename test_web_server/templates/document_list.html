@@ -1,0 +1,15 @@
+{% extends 'main_page.html' %}
+
+{% block content %}
+{% if documents %}
+<ul>
+    {% for document in documents %}
+    <li><a href="{{ url('get_document_detail', document_id=document.id) }}">{{ document.file_name }}</a></li>
+    <li>{{ document.publish_date }}</li>
+    <li>{{ document.url }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>No documents are available.</p>
+{% endif %}
+{% endblock %}

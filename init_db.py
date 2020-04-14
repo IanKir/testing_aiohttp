@@ -13,11 +13,10 @@ def create_tables(engine):
 
 
 def sample_data(engine):
-    # fixme: как не хранить пароль не хэшированным
     conn = engine.connect()
     conn.execute(user.insert(), [
         {'username': 'testuser',
-         'password': 'testuser'}
+         'password_hash': str(hash('testuser'))}
     ])
     conn.execute(document.insert(), [
         {'file_name': 'Полезные сайты для программирования',

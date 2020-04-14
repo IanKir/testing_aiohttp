@@ -1,0 +1,11 @@
+{% extends 'main_page.html' %}
+
+{% block content %}
+<ul>
+    <li>{{ document.user_id }}</li>
+    <li>{{ document.id }}</li>
+    <li>{{ document.file_name }}</li>
+    <li>{{ document.publish_date }}</li>
+    <li>{{ document.url }}</li>
+</ul>
+{% endblock %}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Building</title>
+</head>
+<body>
+<div>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link active" href="#">Добавить документ</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="{{ url('get_document_list') }}">Мои документы</a>
+        </li>
+        <li class="nav-item">
+            <!--            todo: {{ url('download_document_list') }}-->
+            <a class="nav-link active" href="#">Скачать все документы</a>
+        </li>
+<!--        todo: добавить кнопки регистрации-->
+    </ul>
+</div>
+<div class="mx-sm-3">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+</html>
