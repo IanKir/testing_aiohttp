@@ -4,7 +4,12 @@
 <ul>
     <li>{{ document.user_id }}</li>
     <li>{{ document.id }}</li>
-    <li>{{ document.file_name }}</li>
+    <li>
+        <a href="{{ url('update_document', document_id=document.id) }}">
+            {{ document.file_name }}
+        </a>
+    </li>
+
     <li>{{ document.publish_date }}</li>
     <li>{{ document.url }}</li>
 </ul>

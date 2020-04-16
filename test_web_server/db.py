@@ -62,6 +62,13 @@ class AddNewFileProblem(Exception):
         self.message = message
 
 
+class UpdateFileProblem(Exception):
+    """Возникли проблемы при добавлении записи в БД"""
+
+    def __init__(self, message):
+        self.message = message
+
+
 async def get_document(conn, document_id):
     """Возвращает документ по его id"""
     result = await conn.execute(
@@ -73,11 +80,22 @@ async def get_document(conn, document_id):
     return document_record
 
 
-async def add_document(conn, new_document):
+async def add_document(conn, data):
     """Добавляет элемент в БД"""
     await conn.execute(
         document.insert().values(
-            {'file_name': str(new_document.get('file_name')),
+            {'file_name': str(data.get('file_name')),
              'publish_date': datetime.now(),
-             'url': str(new_document.get('url')),
-             'user_id': int(new_document.get('user_id'))}))
+             'url': str(data.get('url')),
+             'user_id': int(data.get('user_id'))}))
+
+
+async def update_document(conn, data):
+    """Обновляет элемент в БД"""
+    await conn.execute(
+        document.update().where(
+            document.c.id == int(data.get('document_id'))).values(
+            {'file_name': str(data.get('file_name')),
+             'publish_date': datetime.now(),
+             'url': str(data.get('url')),
+             'user_id': int(data.get('user_id'))}))
