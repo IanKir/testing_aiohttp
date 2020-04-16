@@ -6,6 +6,9 @@ from .db import user, document
 import aiohttp_jinja2
 
 
+# todo: https://developers.google.com/drive/api/v3/manage-downloads#python
+# todo: добавить страницу редактирования документа
+
 async def index(request):
     # todo: добавить рендер страницы greeting_page.html
     #  с которой можно перейти на страницу регистрации пользователя
@@ -30,3 +33,18 @@ async def get_document_detail(request) -> Dict[str, dict]:
         except db.RecordNotFound as e:
             raise web.HTTPNotFound(text=str(e))
         return {'document': one_document}
+
+
+@aiohttp_jinja2.template('document_edit.html')
+async def add_document(request) -> Dict[str, str]:
+    """Записывает данные в бд"""
+    if request.method == 'POST':
+        async with request.app['db'].acquire() as conn:
+            data = await request.post()
+            try:
+                await db.add_document(conn=conn, new_document=data)
+            except db.AddNewFileProblem as e:
+                raise web.HTTPNotFound(text=str(e.message))
+            location = request.app.router['get_document_list'].url_for()
+            raise web.HTTPFound(location=location)
+    return {'document': ''}

@@ -23,6 +23,10 @@ def sample_data(engine):
          'publish_date': '2015-12-15 17:17:49.629+02',
          'url': 'https://docs.google.com/document/d/1x5U4xrnYm-dOa7LhBah7TKRs3IWU96ttY2m2r3n2Oq8/edit?usp=sharing',
          'user_id': 1},
+        {'file_name': 'Онлайн ресурсы для изучения программирования',
+         'publish_date': '2016-12-15 17:17:49.629+02',
+         'url': 'https://docs.google.com/document/d/12vSuKV63-Xh9jT0rxA149weLXX-uXPJh4hRdh0mlq1I/edit?usp=sharing',
+         'user_id': 1},
     ])
     conn.close()
 
