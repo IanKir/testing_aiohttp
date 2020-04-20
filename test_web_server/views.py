@@ -2,7 +2,8 @@ from aiohttp import web
 from typing import Dict, List
 
 from . import db
-from .db import user, document
+from .db import document
+from .middlewares import handle_404
 import aiohttp_jinja2
 
 
@@ -12,7 +13,6 @@ import aiohttp_jinja2
 # todo: simple authorization with
 #  https://aiohttp-security.readthedocs.io/en/latest/example.html
 
-# todo: middleware
 
 async def index(request):
     # todo: добавить рендер страницы greeting_page.html
@@ -33,6 +33,10 @@ async def get_document_list(request) -> Dict[str, List[dict]]:
 async def get_document_detail(request) -> Dict[str, dict]:
     async with request.app['db'].acquire() as conn:
         document_id = request.match_info.get('document_id')
+        try:
+            document_id = int(document_id)
+        except ValueError:
+            return await handle_404(request)
         try:
             one_document = await db.get_document(conn=conn, document_id=document_id)
         except db.RecordNotFound as e:
@@ -70,5 +74,9 @@ async def update_document(request) -> Dict[str, str]:
     elif request.method == 'GET':
         async with request.app['db'].acquire() as conn:
             document_id = request.match_info.get('document_id')
+            try:
+                document_id = int(document_id)
+            except ValueError:
+                return await handle_404(request)
             one_document = await db.get_document(conn=conn, document_id=document_id)
             return {'document': one_document}

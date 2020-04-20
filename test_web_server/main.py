@@ -3,11 +3,13 @@ import jinja2
 from aiohttp import web
 
 from test_web_server.db import init_pg, close_pg
+from test_web_server.middlewares import setup_middlewares
 from test_web_server.settings import config, BASE_DIR
 from test_web_server.routes import setup_routes
 
 app = web.Application()
 setup_routes(app)
+setup_middlewares(app)
 app['config'] = config
 aiohttp_jinja2.setup(app,
                      loader=jinja2.FileSystemLoader(str(BASE_DIR / 'test_web_server' / 'templates')))
