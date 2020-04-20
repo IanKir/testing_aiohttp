@@ -1,3 +1,5 @@
+from typing import Dict
+
 import aiopg.sa
 from sqlalchemy import (
     MetaData, Table, Column, ForeignKey,
@@ -70,7 +72,7 @@ class UpdateFileProblem(Exception):
 
 
 async def get_document(conn, document_id):
-    """Возвращает документ по его id"""
+    """Возвращает документ obj по его id"""
     result = await conn.execute(
         document.select().where(document.c.id == document_id))
     document_record = await result.first()

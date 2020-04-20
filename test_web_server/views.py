@@ -6,8 +6,13 @@ from .db import user, document
 import aiohttp_jinja2
 
 
-# todo: https://developers.google.com/drive/api/v3/manage-downloads#python
-# todo: добавить страницу редактирования документа
+# todo: download docs
+#  https://developers.google.com/drive/api/v3/manage-downloads#python
+
+# todo: simple authorization with
+#  https://aiohttp-security.readthedocs.io/en/latest/example.html
+
+# todo: middleware
 
 async def index(request):
     # todo: добавить рендер страницы greeting_page.html
@@ -56,7 +61,6 @@ async def update_document(request) -> Dict[str, str]:
     if request.method == 'POST':
         async with request.app['db'].acquire() as conn:
             data = await request.post()
-            print(data)
             try:
                 await db.update_document(conn=conn, data=data)
             except db.UpdateFileProblem as e:
